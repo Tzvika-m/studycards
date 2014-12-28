@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/libs/angular.js"></script>
+    <script src="/javascripts/app.js"></script>
+    <script src="/javascripts/factories/usersFactory.js"></script>
+    <script src="/javascripts/controllers/mainController.js"></script>
+  </head>
+  <body ng-app="studyCards" ng-controller="mainCtrl">
+
+    <h1>users</h1>
+    <p>Welcome to users</p>
+    <div>
+      {{test}}
+    </div>
+    <div ng-repeat="user in users">
+      name: {{user.name}}<br />
+      age: {{user.age}} <br/><br/>
+
+    </div>
+
+  </body>
+</html>
