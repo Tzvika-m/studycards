@@ -1,7 +1,6 @@
 app.controller('mainCtrl', ['$scope', 'usersFactory', function($scope, usersFactory){
-    usersFactory.getUsers().then(function(response){
-        $scope.users = response.data;
-        $scope.tzvika = "king";
+    usersFactory.getUsers().then(function(data){
+        $scope.cards = data;
     });
 
     $scope.test = "hi there";

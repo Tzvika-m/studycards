@@ -1,15 +1,18 @@
 var express = require('express');
+var mongoose = require('mongoose');
+var card = mongoose.model('card');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res) {
-  var db = req.db;
-  var col = db.get('testCol');
-  col.find({},{},function(e, docs){
-    res.send(docs);
-  });
+router.get('/', function(req, res, next) {
+  card.find(function(err, cards) {
+    if (err) {
+      // TODO : What is this next thingie?
+      return next(err);
+    }
 
+    res.json(cards);
+  });
 });
 
 module.exports = router;
-// itay is gay
