@@ -8,6 +8,7 @@
     <script src="/javascripts/libs/jquery-2.1.3.min.js"></script>
     <script src="/javascripts/angularApp.js"></script>
     <script src="/javascripts/factories/cardSetsFactory.js"></script>
+    <script src="/javascripts/factories/schoolsFactory.js"></script>
     <script src="/javascripts/controllers/mainController.js"></script>
     <script src="/javascripts/libs/handsontable/handsontable.full.js"></script>
   </head>
@@ -18,8 +19,9 @@
 
     <div> Get a cardset :
       <form ng-submit="cardsetChosen()">
-      <input ng-model="chosenCardSetId"/>
-      <button type="submit">תביא לי!</button>
+        <select ng-model="schools" ng-options="school.name for school in schools"></select>
+        <input ng-model="chosenCardSetId"/>
+        <button type="submit">תביא לי!</button>
       </form>
       </button>
     </div>
