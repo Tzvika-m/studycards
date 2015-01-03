@@ -8,6 +8,6 @@ var cardSetSchema = new mongoose.Schema({
     name : String,
     owner : String,
     cards : [{type : mongoose.Schema.Types.ObjectId, ref: 'card'}]
-});
+}, { collection : "cardSets"});
 
 mongoose.model('cardSet', cardSetSchema);

@@ -3,22 +3,28 @@
   <head>
     <title></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/javascripts/libs/handsontable/handsontable.full.css' />
     <script src="/javascripts/libs/angular.js"></script>
+    <script src="/javascripts/libs/jquery-2.1.3.min.js"></script>
     <script src="/javascripts/angularApp.js"></script>
-    <script src="/javascripts/factories/usersFactory.js"></script>
+    <script src="/javascripts/factories/cardSetsFactory.js"></script>
     <script src="/javascripts/controllers/mainController.js"></script>
+    <script src="/javascripts/libs/handsontable/handsontable.full.js"></script>
   </head>
   <body ng-app="studyCards" ng-controller="mainCtrl">
 
     <h1>users</h1>
-    <p>Welcome to users</p>
-    <div>
-      {{test}}
+    <p>Welcome to Studycards!(Working title)</p>
+
+    <div> Get a cardset :
+      <form ng-submit="cardsetChosen()">
+      <input ng-model="chosenCardSetId"/>
+      <button type="submit">תביא לי!</button>
+      </form>
+      </button>
     </div>
-    <div ng-repeat="card in cards">
-      front: {{card.front}}<br />
-      back: {{card.back}} <br/><br/>
-    </div>
+
+    <div id="htTable"></div>
 
   </body>
 </html>

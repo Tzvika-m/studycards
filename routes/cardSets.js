@@ -5,8 +5,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    cardSet
-        .find()
+    cardSet.findById(req.query.cardSetId.toString())
         .populate("cards")
         .exec(function (err, cardSets){
         if (err) {
