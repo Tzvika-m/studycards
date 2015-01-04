@@ -1,34 +1,34 @@
 /**
- * Created by Zvika on 03/01/2015.
+ * Created by Zvika on 04/01/2015.
  */
 var express = require('express');
 var mongoose = require('mongoose');
-var school = mongoose.model('school');
+var department = mongoose.model('department');
 var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    school.find()
-        .exec(function (err, schools){
+    department.find()
+        .exec(function (err, departments){
             if (err) {
                 // TODO : What is this next thingie?
                 return next(err);
             }
 
-            res.json(schools);
+            res.json(departments);
         })
 });
 
 router.get('/:id', function(req, res, next) {
-    school.findById(req.params.id.toString())
-        .populate("departments")
-        .exec(function (err, school){
+    department.findById(req.params.id.toString())
+        .populate("courses")
+        .exec(function (err, department){
             if (err) {
                 // TODO : In case of error return empty?
                 res.json([]);
             }
 
-            res.json(school);
+            res.json(department);
         })
 });
 
