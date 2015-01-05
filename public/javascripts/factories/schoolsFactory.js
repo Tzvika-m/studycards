@@ -8,5 +8,12 @@ app.factory('schoolsFactory', ['$http', function($http){
             return response.data;
         });
     };
+
+    factory.getSchoolById = function (id) {
+        return $http.get('/schools/' + id).then(function(repsonse){
+            return repsonse.data;
+        });
+    };
+
     return factory;
 }]);

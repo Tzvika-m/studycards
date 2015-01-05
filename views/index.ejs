@@ -9,6 +9,8 @@
     <script src="/javascripts/angularApp.js"></script>
     <script src="/javascripts/factories/cardSetsFactory.js"></script>
     <script src="/javascripts/factories/schoolsFactory.js"></script>
+    <script src="/javascripts/factories/departmentsFactory.js"></script>
+    <script src="/javascripts/factories/coursesFactory.js"></script>
     <script src="/javascripts/controllers/mainController.js"></script>
     <script src="/javascripts/libs/handsontable/handsontable.full.js"></script>
   </head>
@@ -19,12 +21,24 @@
 
     <div> Get a cardset :
       <form ng-submit="cardsetChosen()">
-        <select ng-model="schools" ng-options="school.name for school in schools"></select>
+        <select ng-model="chosenSchool" ng-options="school.name for school in schools" ng-change="schoolsChange()">
+          <option value="">-- choose school --</option>
+        </select>
+        <select ng-model="chosenDepartment" ng-options="dep.name for dep in departments" ng-change="departmentsChange()">
+          <option value="">-- choose department --</option>
+        </select>
+        <select ng-model="chosenCourse" ng-options="course.name for course in courses" ng-change="coursesChange()">
+          <option value="">-- choose course --</option>
+        </select>
+        <select ng-model="chosenCardSet" ng-options="cardSet.name for cardSet in cardSets" ng-change="cardsetChosen()">
+          <option value="">-- choose card set --</option>
+        </select>
         <input ng-model="chosenCardSetId"/>
         <button type="submit">תביא לי!</button>
       </form>
       </button>
     </div>
+    {{testMessage}}
 
     <div id="htTable"></div>
 

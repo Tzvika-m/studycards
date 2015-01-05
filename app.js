@@ -16,10 +16,13 @@ require('./models/department');
 require('./models/school');
 
 
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var cardSets = require('./routes/cardSets');
 var schools = require('./routes/schools');
+var departments = require('./routes/departments');
+var courses = require('./routes/courses');
 
 var app = express();
 
@@ -39,6 +42,8 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/cardSets', cardSets);
 app.use('/schools', schools);
+app.use('/departments', departments);
+app.use('/courses', courses);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
