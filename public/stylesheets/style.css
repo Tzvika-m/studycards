@@ -6,3 +6,35 @@ body {
 a {
   color: #00B7FF;
 }
+
+.flashcard-part {
+  height:100% !important;
+  width:100% !important;
+}
+.flashcard {
+  width:500px !important;
+  height:300px !important;
+  line-height:300px !important;
+  text-align:center !important;
+  margin:50px !important;
+}
+
+.flashcard-text {
+  display:inline-block !important;;
+  line-height:30px !important;
+  font-size:200%;
+  vertical-align:middle !important;
+}
+
+flippy-front, flippy-back
+{
+  border-radius:5px !important;
+}
+
+.handsontableInput {
+  direction:rtl;
+}
+
+.handsontable td {
+  direction:rtl;
+}

@@ -1,4 +1,4 @@
-var app = angular.module('studyCards', []);
+var app = angular.module('studyCards', ['angular-flippy']);
 
 app.config(function($logProvider){
     // TODO: Erase before prodution

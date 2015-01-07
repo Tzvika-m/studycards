@@ -1,15 +1,26 @@
-app.controller('mainCtrl', ['$scope', 'cardSetsFactory','schoolsFactory', 'departmentsFactory', 'coursesFactory',
-                    function($scope, cardSetsFactory, schoolsFactory, departmentsFactory, coursesFactory){
+app.controller('mainCtrl',
+['$scope', 'cardSetsFactory','schoolsFactory', 'departmentsFactory', 'coursesFactory',
+function($scope, cardSetsFactory, schoolsFactory, departmentsFactory, coursesFactory){
     $scope.cards = [];
     $scope.schools = [];
-    $scope.testMessage = "hi";
+    $scope.currentCard = {};
 
     var handsOnTable = new Handsontable($.find('#htTable')[0], {
-        colHeaders: ['Front', 'Back'],
-        columns : [{type: 'text', data:'front', width:150}, {type: 'text', data:'back', width:250}],
+        colHeaders: ['צד אחורי', 'צד קדמי'],
+        columns : [{type: 'text', data:'back', width:250}, {type: 'text', data:'front', width:150}],
         minSpareRows : 1,
         data: $scope.cards
     });
+
+    handsOnTable.addHook('afterSelection', function(rowStart, columnStart, rowEnd, columnEnd)
+    {
+        $scope.$apply(function() {
+            $scope.currentCard = $scope.cards[rowStart];
+        });
+    });
+
+     // Creates the flip object on the card
+
 
     schoolsFactory.getSchools().then(function(schools){
         $scope.schools = schools;
@@ -33,9 +44,16 @@ app.controller('mainCtrl', ['$scope', 'cardSetsFactory','schoolsFactory', 'depar
         });
     };
 
-    $scope.cardsetChosen = function() {
-        cardSetsFactory.getCardSet($scope.chosenCardSet._id).then(function(cardSets){
-            handsOnTable.loadData(cardSets.cards);
+    $scope.cardSetChange = function() {
+        cardSetsFactory.getCardSet($scope.chosenCardSet._id).then(function(cardSet){
+            $scope.cards = cardSet.cards;
         });
     }
+
+    // TODO : Is watch really neccessary here?
+    $scope.$watch('cards', function(newValue, oldValue) {
+        handsOnTable.loadData(newValue);
+        $scope.currentCard = {};
+    });
+
     }]);
