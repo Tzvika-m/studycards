@@ -38,3 +38,7 @@ flippy-front, flippy-back
 .handsontable td {
   direction:rtl;
 }
+
+.ht_clone_top .handsontable {
+ direction:rtl;
+}

@@ -3832,7 +3832,8 @@ Handsontable.TableView.prototype.destroy = function () {
 
                 case keyCodes.TAB:
                   var tabMoves = typeof priv.settings.tabMoves === 'function' ? priv.settings.tabMoves(event) : priv.settings.tabMoves;
-                  if (event.shiftKey) {
+                    // TODO: Reversed logic to match RTL - is patching needs to be reapplied
+                  if (!event.shiftKey) {
                     selection.transformStart(-tabMoves.row, -tabMoves.col); //move selection left
                   }
                   else {
@@ -3955,6 +3956,11 @@ Handsontable.TableView.prototype.destroy = function () {
           selection.transformStart(-enterMoves.row, -enterMoves.col); //move selection up
         }
         else {
+          // TODO: this is an override - if patching must be reapplied
+          if ((priv.selRange.isSingle()) && (priv.selRange.from.col == 0)) {
+            enterMoves.col = 1;
+          }
+
           selection.transformStart(enterMoves.row, enterMoves.col, true); //move selection down (add a new row if needed)
         }
       }
@@ -7845,6 +7851,8 @@ CopyPasteClass.prototype.triggerPaste = function (event, str) {
   if (that.pasteCallbacks) {
     setTimeout(function () {
       var val = (str || that.elTextarea.value).replace(/\n$/, ''); //remove trailing newline
+
+
       for (var i = 0, ilen = that.pasteCallbacks.length; i < ilen; i++) {
         that.pasteCallbacks[i](val, event);
       }
@@ -12088,6 +12096,7 @@ if (typeof Handsontable !== 'undefined') {
         return;
       }
 
+
       var input = str.replace(/^[\r\n]*/g, '').replace(/[\r\n]*$/g, '') //remove newline from the start and the end of the input
         , inputArray = SheetClip.parse(input)
         , selected = instance.getSelected()
@@ -12101,6 +12110,17 @@ if (typeof Handsontable !== 'undefined') {
           Math.max(bottomRightCorner.row, inputArray.length - 1 + topLeftCorner.row),
           Math.max(bottomRightCorner.col, inputArray[0].length - 1 + topLeftCorner.col)
         );
+
+      // TODO: Added code to check if input contains hebrew - if so then flips the paste order
+      if (/[\u0590-\u05FF]/.test(input)) {
+        for (var currentRowIndex = 0; currentRowIndex < inputArray.length; currentRowIndex++){
+          var currentRow = inputArray[currentRowIndex];
+          var temp = currentRow[0];
+          currentRow[0] = currentRow[1];
+          currentRow[1] = temp;
+        }
+        areaStart.col = 1 - areaStart.col;
+      }
 
       instance.addHookOnce('afterChange', function (changes, source) {
         if (changes && changes.length) {
